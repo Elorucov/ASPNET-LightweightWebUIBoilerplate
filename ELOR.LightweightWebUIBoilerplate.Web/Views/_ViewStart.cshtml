@@ -1,0 +1,10 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Web.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.Extensions.DependencyInjection
+@{
+    var browser = Context.RequestServices.GetService<ClientBrowserService>();
+    if (!Context.IsAjaxRequest())
+    {
+        Layout = browser.IsMobile() ? "_MobileLayout" : "_DesktopLayout";
+    }
+}

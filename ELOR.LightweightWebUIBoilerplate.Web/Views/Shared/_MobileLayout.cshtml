@@ -1,0 +1,60 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.Extensions.DependencyInjection
+@{
+    IgnoreSection("styles");
+    IgnoreSection("scripts");
+    var svgs = Context.RequestServices.GetService<SVGEmbeddingService>();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/colors.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/core.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/mobile.css" asp-append-version="true" />
+    @RenderSection("styles", false)
+    @Html.Partial("EmbeddedScript.cshtml")
+    <script type="text/javascript" src="~/js/core.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/mobile.js" asp-append-version="true"></script>
+    @RenderSection("scripts", false)
+    <title>@ViewBag.Title</title>
+</head>
+<body class="mobile">
+    @Html.Partial("SVGs.cshtml")
+    <aside id="main_menu_root">
+        <div id="main_menu">
+            @Html.Partial("MainMenu.cshtml")
+        </div>
+        <div id="main_menu_closer" onclick="toggleMenu();"></div>
+    </aside>
+    <header id="page_header">
+        <button class="page_header_button" onclick="toggleMenu();">
+            @Html.Raw(svgs.GetSVGElement("menu_outline_28"))
+        </button>
+        <div id="header_content">
+            @if (IsSectionDefined("mobileHeader"))
+            {
+                @RenderSection("mobileHeader")
+            }
+            else
+            {
+                <h2>@ViewBag.Title</h2>
+            }
+        </div>
+    </header>
+    <main>
+        <section id="content">
+            @RenderBody()
+        </section>
+        @if (IsSectionDefined("extra"))
+        {
+            <section id="extra">
+                @RenderSection("extra")
+            </section>
+        }
+    </main>
+</body>
+</html>

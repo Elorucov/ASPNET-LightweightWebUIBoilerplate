@@ -1,0 +1,88 @@
+﻿:root {
+    --page-block-shadow: 0 1px 0 0 var(--separator_common), 0 0 0 1px var(--separator_alternate);
+}
+
+.desktop > main {
+    width: 992px;
+    margin: 0 auto;
+    display: flex;
+    gap: var(--blocks_gap);
+}
+
+main > #main_menu {
+    width: 180px;
+}
+
+main > #content {
+    flex: 1;
+    width: 0;
+}
+
+main > #extra {
+    width: 230px;
+}
+
+main > #main_menu, main > #extra {
+    align-self: flex-start;
+    position: sticky;
+    top: var(--blocks_gap);
+}
+
+main > #extra .page_block > header {
+    background: transparent;
+    margin-left: 0px;
+    margin-right: 0px;
+    height: 40px;
+    font-size: unset;
+    padding: 0px 16px;
+    border: 0;
+}
+
+main > #extra .page_block > header.alternate {
+    color: var(--text_secondary);
+}
+
+main > #extra .page_block > header > label {
+    font-size: unset;
+    line-height: 14px; /* even number can move text to 1px up and normalize it, lol */
+}
+
+main > #extra .page_block > content {
+    padding: 16px;
+}
+
+main > #extra .page_block > header + content {
+    padding-top: 0px;
+}
+
+main > #main_menu, main > #content, main > #extra {
+    margin-top: var(--blocks_gap);
+}
+
+/* Page sections container */
+
+.page_sections {
+    display: flex;
+    flex-direction: column;
+}
+
+.page_block > .page_sections {
+    padding: 12px 0px;
+}
+
+.page_sections > a {
+    overflow: hidden;
+    text-decoration: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 32px;
+    padding: 0 23px;
+}
+
+.page_sections > a.selected {
+    padding-left: 21px;
+    font-weight: 500;
+    color: var(--text-primary);
+    background: var(--background_hover);
+    border-left: 2px solid var(--accent);
+}

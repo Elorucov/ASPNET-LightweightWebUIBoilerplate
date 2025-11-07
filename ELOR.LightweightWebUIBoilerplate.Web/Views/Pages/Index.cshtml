@@ -1,0 +1,140 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Core.Localizations
+@using ELOR.LightweightWebUIBoilerplate.Web.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.Extensions.DependencyInjection
+@addTagHelper *, ELOR.LightweightWebUIBoilerplate.Web
+@{
+    var svgs = Context.RequestServices.GetService<SVGEmbeddingService>();
+    var browser = Context.RequestServices.GetService<ClientBrowserService>();
+
+    ViewBag.Title = "ASP.NET MVC Lightweight Web UI";
+    string currentUrl = Context.Request.ToString();
+
+    // Testing injecting localization strings as JS in page
+    this.AddWebLocalizationStrings(["Sample"]);
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/js/test.js" asp-append-version="true"></script>
+}
+
+<div class="page_block">
+    @if (!browser.IsMobile())
+    {
+        <header class="plain">
+            @ViewBag.Title
+        </header>
+    }
+    <content>
+        Developed by <a href="https://github.com/Elorucov">Elchin Orujov</a>.
+        <br/>
+        This page demonstrates features for SSR-based web sites such as:
+        <ul>
+            <li>Server-side device type detection: rendering different layouts for specific types;</li>
+            <li>Custom modal dialogs (a.k.a. boxes);</li>
+            <li>Injecting localization strings from RESX into the page as a JS script to use localization in JS;</li>
+            <li>Tag-helper for form items;</li>
+            <li>AJAX page loading: render only content (without layout) if request sent via AJAX.</li>
+        </ul>
+        Localized text: @WebLoc.Sample
+        <br/>
+        Available languages: <a href="?culture=en-US&ui-culture=en-US">English</a>, <a href="?culture=ru-RU&ui-culture=ru-RU">Russian</a>
+        <br />
+        <br />
+        <button class="loading">Loading button</button>
+        <button class="loading primary">Loading button</button>
+    </content>
+</div>
+
+<div class="page_block">
+    <header>Form, its tag-helper and UI controls test</header>
+    <content>
+        <form>
+            <form-item label="Select:">
+                <select id="opts1" name="opts1">
+                    <option value="1">Option 1</option>
+                    <option value="2">Option 2</option>
+                    <option value="3">Option 3</option>
+                </select>
+            </form-item>
+            <form-item label="Input:">
+                <input id="test_input" name="test_input" type="text" placeholder="Write something here..." />
+            </form-item>
+            <form-item label="Textarea:">
+                <textarea name="actual" rows="3" placeholder="3 lines"></textarea>
+            </form-item>
+            <form-item label="Check boxes:">
+                <span>
+                    <input type="checkbox" name="chk01" id="chk01" />
+                    <label for="chk01">Generic checkbox</label>
+                </span>
+                <span>
+                    <input type="checkbox" name="chk02" id="chk02" checked />
+                    <label for="chk02">Checked by default</label>
+                </span>
+                <span>
+                    <input type="checkbox" name="chk03" id="chk03" disabled />
+                    <label for="chk03">Disabled</label>
+                </span>
+                <span>
+                    <input type="checkbox" name="chk04" id="chk04" disabled checked />
+                    <label for="chk03">Disabled &amp; checked</label>
+                </span>
+            </form-item>
+            <form-item label="Radio buttons:">
+                <span>
+                    <input type="radio" name="girl" id="chk05" />
+                    <label for="chk05">Gunel</label>
+                </span>
+                <span>
+                    <input type="radio" name="girl" id="chk06" checked />
+                    <label for="chk06">Nastya</label>
+                </span>
+                <span>
+                    <input type="radio" name="girl" id="chk07" disabled />
+                    <label for="chk07">Yulia</label>
+                </span>
+            </form-item>
+        </form>
+    </content>
+</div>
+
+<div class="page_block">
+    <header>Boxes</header>
+    <content style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <button onclick="showScrollableBox();">Scrollable box</button>
+        <button onclick="showConfirmBox();">Confirm box</button>
+        <button onclick="showMessageBox();">Message box</button>
+        <button onclick="showMessageBoxWithLoader();">Box loader + message box</button>
+        <button onclick="showSnackbar();">Snackbar</button>
+    </content>
+</div>
+
+<div class="page_block">
+    <header>AJAX test</header>
+    <content style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <a class="button" asp-controller="Home" asp-action="AjaxTest" data-ajax-box>Load page as ajax in box</a>
+        <button onclick="testMessageBoxFromServer()">Test ajax message box</button>
+        <a class="button" asp-controller="Home" asp-action="ErrorTest" data-ajax-box>Error test</a>
+        <a class="button" asp-controller="Home" asp-action="FormTest" data-ajax-box>Form test</a>
+        <a class="button" data-confirm-title="Delete?" data-confirm-message="Sure?" data-confirm-action="@Url.Action("Index")" data-confirm-button="Yes" data-additional-inputs="test_input" data-antiforgery-token-form-id="aft">Confirm</a>
+    </content>
+</div>
+
+<div class="page_block">
+    <header>Info message</header>
+    <content>
+        @Html.InfoMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.")
+        <br/>
+        @Html.InfoMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Success", InfoMessageType.Success)
+        <br/>
+        @Html.InfoMessage("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.", "Error", InfoMessageType.Error)
+    </content>
+</div>
+
+@section extra {
+    <div class="page_block">
+        <header>Extra</header>
+        <content>Lorem ipsum dolor sit amet, the quick brown fox jumps over the lazy dog!</content>
+    </div>
+}

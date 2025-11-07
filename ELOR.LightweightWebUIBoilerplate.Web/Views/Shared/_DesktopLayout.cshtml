@@ -1,0 +1,42 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.Extensions.DependencyInjection
+@{
+    IgnoreSection("styles");
+    IgnoreSection("scripts");
+    IgnoreSection("mobileHeader");
+    var svgs = Context.RequestServices.GetService<SVGEmbeddingService>();
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="~/css/colors.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/fonts.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/core.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/desktop.css" asp-append-version="true" />
+    @RenderSection("styles", false)
+    @Html.Partial("EmbeddedScript.cshtml")
+    <script type="text/javascript" src="~/js/core.js" asp-append-version="true"></script>
+    @RenderSection("scripts", false)
+    <title>@ViewBag.Title</title>
+</head>
+<body class="desktop">
+    @Html.Partial("SVGs.cshtml")
+    <main>
+        <section id="main_menu">
+            @Html.Partial("MainMenu.cshtml")
+        </section>
+        <section id="content">
+            @RenderBody()
+        </section>
+        @if (IsSectionDefined("extra"))
+        {
+            <section id="extra">
+                @RenderSection("extra")
+            </section>
+        }
+    </main>
+</body>
+</html>

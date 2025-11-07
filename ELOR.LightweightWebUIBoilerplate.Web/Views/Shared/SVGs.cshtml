@@ -1,0 +1,12 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.Extensions.DependencyInjection
+@{
+    var service = Context.RequestServices.GetService<SVGEmbeddingService>();
+    List<string> symbols = service.GetSprites();
+}
+<svg style="display:none">
+    @foreach (string symbol in symbols)
+    {
+        @Html.Raw(symbol)
+    }
+</svg>

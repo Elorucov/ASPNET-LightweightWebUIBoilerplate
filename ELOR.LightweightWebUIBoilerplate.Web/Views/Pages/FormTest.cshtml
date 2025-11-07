@@ -1,0 +1,72 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Core.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Core.Localizations
+@using ELOR.LightweightWebUIBoilerplate.Core.Services
+@using ELOR.LightweightWebUIBoilerplate.Web
+@using ELOR.LightweightWebUIBoilerplate.Web.DataModels
+@using ELOR.LightweightWebUIBoilerplate.Web.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.AspNetCore.Html
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.Extensions.Localization
+
+@model string
+@{
+    var browser = Context.RequestServices.GetService<ClientBrowserService>();
+
+    string title = "AJAX-compatible form";
+    string action = Url.ActionLink("FormTest", "Home");
+
+    ViewBag.Title = title;
+    if (Context.IsAjaxRequest()) Context.SetupAjaxFormBox(title, "Confirm", Url.ActionLink("FormTestPost", "Home"));
+}
+
+@{
+    IHtmlContent preInfo = HelperExtensions.Body(@<span>Write <b>err</b> into the first input to simulate validation error.</span>);
+    IHtmlContent input1 = HelperExtensions.Body(@<form-item label="Input:"><input type="text" id="a" name="a"/></form-item>);
+    IHtmlContent input2 = HelperExtensions.Body(@<form-item label="Textarea:"><textarea type="text" id="b" name="b"></textarea></form-item>);
+    IHtmlContent input3 = HelperExtensions.Body(@<form-item label="Check boxes:">
+        @Html.CheckBoxForm("c", "Unchecked by default")
+        @Html.CheckBoxForm("d", "Checked by default", true)
+    </form-item>);
+    IHtmlContent input4 = HelperExtensions.Body(@<form-item label="Radio buttons:">
+        @Html.RadioButtonForm("e", "g", "Gunel")
+        @Html.RadioButtonForm("e", "n", "Nastya", true)
+    </form-item>);
+    IHtmlContent csrf = Html.AntiForgeryToken();
+}
+
+@if (Context.IsAjaxRequest())
+{
+    <div id="info_message_root"></div>
+    @preInfo
+    @input1
+    @input2
+    @input3
+    @input4
+    @csrf
+} else
+{
+    <div class="page_block">
+        @if (!browser.IsMobile())
+        {
+            <header>
+                @ViewBag.Title
+            </header>
+        }
+        <content>
+            @if (ViewData.ContainsKey("InfoMessage"))
+            {
+                @Html.Raw(ViewData["InfoMessage"].ToString())
+            }
+            <form action="@action" method="post">
+                @preInfo
+                @input1
+                @input2
+                @input3
+                @input4
+                @csrf
+                <input type="submit" value="Confirm" />
+            </form>
+        </content>
+    </div>
+}

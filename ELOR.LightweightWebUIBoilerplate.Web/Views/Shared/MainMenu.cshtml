@@ -1,0 +1,33 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Core.Localizations
+@using ELOR.LightweightWebUIBoilerplate.Core.Services
+@using ELOR.LightweightWebUIBoilerplate.Web.DataModels
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.Extensions.Localization
+
+@{
+    var svgs = Context.RequestServices.GetService<SVGEmbeddingService>();
+}
+
+<div id="logo">
+    @Html.Raw(svgs.GetSVGElement("logo"))
+</div>
+
+<div id="main_menu_items">
+    <a class="selected" href="#">
+        @Html.Raw(svgs.GetSVGElement("gear_outline_20"))
+        <span>Menu item 1</span>
+    </a>
+    <a class="selected" href="#">
+        @Html.Raw(svgs.GetSVGElement("gear_outline_20"))
+        <span>Menu item 2</span>
+    </a>
+    <a class="selected" href="#">
+        @Html.Raw(svgs.GetSVGElement("gear_outline_20"))
+        <span>Menu item 3</span>
+    </a>
+    <a class="selected" href="#">
+        @Html.Raw(svgs.GetSVGElement("gear_outline_20"))
+        <span>Menu item 4</span>
+    </a>
+</div>

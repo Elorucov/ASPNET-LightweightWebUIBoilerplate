@@ -1,0 +1,45 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Core.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Core.Localizations
+@using ELOR.LightweightWebUIBoilerplate.Core.Services
+@using ELOR.LightweightWebUIBoilerplate.Web
+@using ELOR.LightweightWebUIBoilerplate.Web.DataModels
+@using ELOR.LightweightWebUIBoilerplate.Web.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.AspNetCore.Html
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.Extensions.Localization
+
+@model string
+@{
+    var browser = Context.RequestServices.GetService<ClientBrowserService>();
+
+    string title = "AJAX-compatible page";
+    ViewBag.Title = title;
+    if (Context.IsAjaxRequest()) Context.SetupAjaxBox("ajax_test_box", title, true);
+}
+
+@section scripts {
+    <script type="text/javascript" src="~/js/test.js" asp-append-version="true"></script>
+}
+
+@{
+    IHtmlContent content = HelperExtensions.Body(@<div class="test">Hello!</div>);
+}
+
+@if (Context.IsAjaxRequest())
+{
+    @content
+} else
+{
+    <div class="page_block">
+        @if (!browser.IsMobile())
+        {
+            <header>
+                @ViewBag.Title
+            </header>
+        }
+        <content>
+            @content
+        </content>
+    </div>
+}

@@ -1,0 +1,36 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Core.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Core.Localizations
+@using ELOR.LightweightWebUIBoilerplate.Core.Services
+@using ELOR.LightweightWebUIBoilerplate.Web
+@using ELOR.LightweightWebUIBoilerplate.Web.DataModels
+@using ELOR.LightweightWebUIBoilerplate.Web.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.AspNetCore.Html
+@using Microsoft.Extensions.DependencyInjection
+@using Microsoft.Extensions.Localization
+
+@model (string, string)
+@{
+    var browser = Context.RequestServices.GetService<ClientBrowserService>();
+
+    string title = Model.Item1;
+    ViewBag.Title = title;
+
+    string referer = Context.Request.Headers["Referer"].ToString();
+}
+
+<div class="page_block">
+    @if (!browser.IsMobile())
+    {
+        <header class="plain">
+            @ViewBag.Title
+        </header>
+    }
+    <content class="message">
+        @Html.Raw(Model.Item2)
+        @if (!string.IsNullOrEmpty(referer))
+        {
+            <a class="button primary" href="@referer">@WebLoc.GoBack</a>
+        }
+    </content>
+</div>

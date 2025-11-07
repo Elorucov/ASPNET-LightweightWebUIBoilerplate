@@ -1,0 +1,31 @@
+﻿@using ELOR.LightweightWebUIBoilerplate.Core.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Extensions
+@using ELOR.LightweightWebUIBoilerplate.Web.Services
+@using Microsoft.AspNetCore.Antiforgery
+@using Microsoft.Extensions.DependencyInjection
+@using System.Text
+
+@{
+    // Localization
+
+    this.AddCommonLocalizationStringsForJSLibs();
+
+    Dictionary<string, string> locStrings = this.GetLocalizationStrings();
+    string locVar = locStrings.ToJSVariableString("langKeys");
+
+    // Config
+    var antiforgery = Context.RequestServices.GetRequiredService<IAntiforgery>();
+
+    Dictionary<string, string> configs = new Dictionary<string, string>
+    {
+        { "baseUrl", Context.GetBaseUrl() },
+        { "xsrf", antiforgery.GetAndStoreTokens(Context).RequestToken }
+    };
+    string configVar = configs.ToJSVariableString("config");
+
+}
+
+<script type="text/javascript">
+    @Html.Raw(locVar)
+    @Html.Raw(configVar)
+</script>
