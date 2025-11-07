@@ -38,7 +38,7 @@ namespace ELOR.LightweightWebUIBoilerplate.Web.Services
             {
                 _svgImages = new Dictionary<string, VectorImage>();
 
-                var assemblyDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var assemblyDirectory = Path.GetDirectoryName(AppContext.BaseDirectory);
                 var files = Directory.GetFiles(Path.Combine(assemblyDirectory, "wwwroot", "images", "svg"));
                 foreach (string filePath in files)
                 {
