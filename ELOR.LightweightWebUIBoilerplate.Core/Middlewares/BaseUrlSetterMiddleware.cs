@@ -18,8 +18,10 @@ namespace ELOR.LightweightWebUIBoilerplate.Core.Middlewares
         {
             var baseUrls = context.RequestServices.GetService<BaseUrls>();
             var baseUrl = context.GetBaseUrl();
+            
             baseUrls.SetWebUrl(baseUrl);
-
+            Console.WriteLine("Base URL: {0}", baseUrl);
+            Console.WriteLine("Path base: {0}", context.Request.PathBase);
             await _next.Invoke(context);
         }
     }

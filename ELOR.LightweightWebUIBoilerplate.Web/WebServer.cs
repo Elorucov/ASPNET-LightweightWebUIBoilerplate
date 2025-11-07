@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.DependencyInjection;
@@ -38,6 +39,11 @@ namespace ELOR.LightweightWebUIBoilerplate.Web
                 opt.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
             });
 
+            builder.Services.AddHttpLogging(options =>
+            {
+                options.LoggingFields = HttpLoggingFields.RequestPropertiesAndHeaders;
+            });
+
             builder.Services.AddAntiforgery(o => o.HeaderName = "XSRF");
 
             builder.Services.AddCors(options =>
@@ -60,12 +66,21 @@ namespace ELOR.LightweightWebUIBoilerplate.Web
 
             builder.WebHost.UseUrls("http://localhost:7575");
 
+
             // Preloading some stuff
             Task.Factory.StartNew(SVGEmbeddingService.LoadAsync);
 
             var app = builder.Build();
 
+            var cmds = Environment.GetCommandLineArgs();
+            var pathBaseCLI = cmds.SingleOrDefault(c => c.StartsWith("PATH_BASE="));
+
             app.UseForwardedHeaders();
+            if (!string.IsNullOrEmpty(pathBaseCLI))
+            {
+                string pathBase = pathBaseCLI.Substring(10);
+                app.UsePathBase(pathBase);
+            }
             app.UseMiddleware<BaseUrlSetterMiddleware>();
 
             var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
@@ -77,7 +92,8 @@ namespace ELOR.LightweightWebUIBoilerplate.Web
 
             app.UseStaticFiles(new StaticFileOptions
             {
-                FileProvider = new PhysicalFileProvider(wwwRootDirectory)
+                FileProvider = new PhysicalFileProvider(wwwRootDirectory),
+                
             });
             app.UseWebMarkupMin();
 
@@ -91,7 +107,9 @@ namespace ELOR.LightweightWebUIBoilerplate.Web
                 await context.Response.WriteAsync($"<!DOCTYPE html><html><head><title>Internal server error</title></head><body><h1>Internal server error</h1><p>{exception.Message}</p><p>{exception.StackTrace}</p></body></html>");
             }));
 
+            app.UseRouting();
             app.MapControllers();
+            app.UseHttpLogging();
 
             afterSetupCallback?.Invoke(app.Services);
             app.Run();
