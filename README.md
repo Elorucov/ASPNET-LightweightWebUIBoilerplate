@@ -7,7 +7,7 @@ This is an ASP.NET Core MVC web project (.NET 9) that demonstrates features for 
 * Tag-helper for form items;
 * AJAX page loading: render only content (without layout) if request sent via AJAX.
 
-Demo: [https://elor.top/demos/lwui/](https://elor.top/demos/lwui/)
+Demo: [elor.top/demos/lwui/](https://elor.top/demos/lwui/)
 
 If you want to develop websites in ASP.NET Core using ыerver-side rendering, you can use this project as a basis.
 
@@ -17,6 +17,6 @@ Currently, I developing a ASP.NET Core MVC web-service. I decided that before th
 
 ## Inspirations
 
-Some of features, in particular modal dialogs (boxes) and the idea of ​​AJAX commands, were taken from the [https://github.com/grishka/Smithereen](Smithereen) project — a decentralized social network that uses "classical approach" to web site development (server-side rendering without modern UI rendering frameworks like React).
+Some of features, in particular modal dialogs (boxes) and the idea of ​​AJAX commands, were taken from the [Smithereen](https://github.com/grishka/Smithereen) project — a decentralized social network that uses "classical approach" to web site development (server-side rendering without modern UI rendering frameworks like React).
 
-Design of the desktop version inspired by pre-React version of the [vk.com](vk.com) (before 2022).  
+Design of the desktop version inspired by pre-React version of the [vk.com](https://vk.com) (before 2022).  
