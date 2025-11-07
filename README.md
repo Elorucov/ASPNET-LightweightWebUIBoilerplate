@@ -14,3 +14,9 @@ If you want to develop websites in ASP.NET Core using ыerver-side rendering, yo
 ## For what?
 
 Currently, I developing a ASP.NET Core MVC web-service. I decided that before the service's release, it would be better to share some of my work that isn't directly related to the service but could still be useful to third-party developers. This project is also currently my only publicly available ASP.NET Core project for demonstration to potential employers.
+
+## Inspirations
+
+Some of features, in particular modal dialogs (boxes) and the idea of ​​AJAX commands, were taken from the [https://github.com/grishka/Smithereen](Smithereen) project — a decentralized social network that uses "classical approach" to web site development (server-side rendering without modern UI rendering frameworks like React).
+
+Design of the desktop version inspired by pre-React version of the [vk.com](vk.com) (before 2022).  
