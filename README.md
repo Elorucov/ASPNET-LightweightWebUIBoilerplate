@@ -20,3 +20,25 @@ Currently, I developing a ASP.NET Core MVC web-service. I decided that before th
 Some of features, in particular modal dialogs (boxes) and the idea of ​​AJAX commands, were taken from the [Smithereen](https://github.com/grishka/Smithereen) project — a decentralized social network that uses "classical approach" to web site development (server-side rendering without modern UI rendering frameworks like React).
 
 Design of the desktop version inspired by pre-React version of the [vk.com](https://vk.com) (before 2022).  
+
+## Screenshots
+
+### Desktop
+
+![Desktop 1](Screenshots/desktop_light_1.webp)
+
+![Desktop 2](Screenshots/desktop_light_2.webp)
+
+![Desktop 3](Screenshots/desktop_dark_1.webp)
+
+![Desktop 4](Screenshots/desktop_dark_2.webp)
+
+### Mobile
+
+![Mobile 1](Screenshots/mobile_light_1.webp)
+
+![Mobile 2](Screenshots/mobile_light_2.webp)
+
+![Mobile 3](Screenshots/mobile_dark_1.webp)
+
+![Mobile 4](Screenshots/mobile_dark_2.webp)
