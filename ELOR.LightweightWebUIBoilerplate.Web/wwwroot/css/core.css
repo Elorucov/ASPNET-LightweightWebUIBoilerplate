@@ -396,6 +396,10 @@ select {
     padding: 16px var(--page_block_side_margin)
 }
 
+.mobile .page_block > header + content {
+    padding-top: 0px;
+}
+
 .page_block > footer {
     background: var(--background_light);
     border-top: 1px solid var(--separator_common);
