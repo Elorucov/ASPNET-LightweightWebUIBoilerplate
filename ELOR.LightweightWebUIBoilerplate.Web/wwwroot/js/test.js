@@ -10,7 +10,7 @@
 }
 
 function showMessageBox() {
-    let box = new MessageBox("Test", "Message", "Close");
+    let box = new MessageBox("Test", "Message", lang("Close"));
     box.show();
 }
 

@@ -12,7 +12,7 @@ namespace ELOR.LightweightWebUIBoilerplate.Web.Controllers
             return View("~/Views/Pages/Index.cshtml");
         }
 
-        [Route("/")]
+        [Route("/confirm")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public IActionResult ConfirmTest()

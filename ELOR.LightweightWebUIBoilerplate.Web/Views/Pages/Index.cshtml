@@ -26,7 +26,7 @@
         </header>
     }
     <content>
-        Developed by <a href="https://github.com/Elorucov">Elchin Orujov</a>.
+        Developed by <a href="https://github.com/Elorucov">Elchin Orujov</a>. <a href="https://github.com/Elorucov/ASPNET-LightweightWebUIBoilerplate">Source code</a>.
         <br/>
         This page demonstrates features for SSR-based web sites such as:
         <ul>
@@ -41,6 +41,9 @@
         Available languages: <a href="?culture=en-US&ui-culture=en-US">English</a>, <a href="?culture=ru-RU&ui-culture=ru-RU">Russian</a>
         <br />
         <br />
+        Is mobile: @browser.IsMobile()
+        <br/>
+        <br/>
         <button class="loading">Loading button</button>
         <button class="loading primary">Loading button</button>
     </content>
@@ -117,7 +120,7 @@
         <button onclick="testMessageBoxFromServer()">Test ajax message box</button>
         <a class="button" asp-controller="Home" asp-action="ErrorTest" data-ajax-box>Error test</a>
         <a class="button" asp-controller="Home" asp-action="FormTest" data-ajax-box>Form test</a>
-        <a class="button" data-confirm-title="Delete?" data-confirm-message="Sure?" data-confirm-action="@Url.Action("Index")" data-confirm-button="Yes" data-additional-inputs="test_input" data-antiforgery-token-form-id="aft">Confirm</a>
+        <a class="button" data-confirm-title="Delete?" data-confirm-message="Sure?" data-confirm-action="@Url.Action("ConfirmTest")" data-confirm-button="@WebLoc.Yes" data-additional-inputs="test_input">Confirm</a>
     </content>
 </div>
 
